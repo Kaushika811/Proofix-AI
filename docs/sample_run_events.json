@@ -1,0 +1,388 @@
+[
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A1",
+        "status": "started",
+        "timestamp": "2026-06-21T16:09:38.212537",
+        "message": "Building Semantic Intent Graph",
+        "payload": null,
+        "sequence": 1
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A2",
+        "status": "started",
+        "timestamp": "2026-06-21T16:09:38.606205",
+        "message": "Analyzing dependencies for CVE reachability",
+        "payload": null,
+        "sequence": 1
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A3",
+        "status": "started",
+        "timestamp": "2026-06-21T16:09:38.606343",
+        "message": "Running consensus static analysis",
+        "payload": null,
+        "sequence": 1
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A1",
+        "status": "completed",
+        "timestamp": "2026-06-21T16:09:38.606444",
+        "message": "SIG built with 6 files",
+        "payload": {
+            "file_count": 6,
+            "source_roots": [
+                "vulnapi/"
+            ]
+        },
+        "sequence": 2
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A3",
+        "status": "completed",
+        "timestamp": "2026-06-21T16:09:38.777363",
+        "message": "Distilled 7 raw findings to 6 prioritized",
+        "payload": {
+            "prioritized_count": 6,
+            "source_roots": [
+                "vulnapi/"
+            ],
+            "scan_targets": [
+                "vulnapi"
+            ]
+        },
+        "sequence": 2
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A2",
+        "status": "completed",
+        "timestamp": "2026-06-21T16:09:40.644633",
+        "message": "Found 14 CVE records, 0 critical",
+        "payload": {
+            "critical_count": 0,
+            "unknown_count": 0,
+            "source_roots": [
+                "vulnapi/"
+            ]
+        },
+        "sequence": 2
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A3.5",
+        "status": "started",
+        "timestamp": "2026-06-21T16:09:40.654385",
+        "message": "Running reproduction gate via pytest",
+        "payload": null,
+        "sequence": 3
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A3.5",
+        "status": "completed",
+        "timestamp": "2026-06-21T16:09:41.055922",
+        "message": "Reproduction confirmed",
+        "payload": {
+            "status": "CONFIRMED",
+            "reproduced": true,
+            "force_draft_pr": false,
+            "failing_test": "tests/test_auth.py::test_expired_token_rejected",
+            "report_path": "/var/folders/7h/kyksq1fn5xzbkgqyk99p89dh0000gn/T/pytest_b5b5268c-4807-4f48-b573-6c0587a565fb.json"
+        },
+        "sequence": 4
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A4",
+        "status": "started",
+        "timestamp": "2026-06-21T16:09:41.057309",
+        "message": "Investigating root cause with trace evidence",
+        "payload": null,
+        "sequence": 5
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A4",
+        "status": "completed",
+        "timestamp": "2026-06-21T16:09:41.058113",
+        "message": "Runtime failure: assert True is False\n +  where True = validate_token('eyJhbGciOiAibm9uZSJ9.eyJzdWIi",
+        "payload": {
+            "citations": 7,
+            "reinvestigation": false,
+            "confidence": 1.0,
+            "evidence_refs": 8
+        },
+        "sequence": 6
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A5",
+        "status": "started",
+        "timestamp": "2026-06-21T16:09:41.059550",
+        "message": "Expanding blast graph scope",
+        "payload": null,
+        "sequence": 7
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A5",
+        "status": "completed",
+        "timestamp": "2026-06-21T16:09:41.060082",
+        "message": "Blast scope: 0 files auto-patchable from 5 origins",
+        "payload": {
+            "scope_count": 5,
+            "human_review": 5,
+            "origins": [
+                "/Users/chelvachezhiyan/Projects/IITM_AGENTIC AI/vulnapi/tests/test_auth.py",
+                "vulnapi/api.py",
+                "vulnapi/utils.py",
+                "vulnapi/auth.py",
+                "vulnapi/config.py"
+            ]
+        },
+        "sequence": 8
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A6",
+        "status": "started",
+        "timestamp": "2026-06-21T16:09:41.061084",
+        "message": "Planning fix DAG with conflict detection",
+        "payload": null,
+        "sequence": 9
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A6",
+        "status": "completed",
+        "timestamp": "2026-06-21T16:09:41.062697",
+        "message": "Fix plan: 6 steps, 2 conflict batches, 0 dependency edges",
+        "payload": {
+            "order": [
+                "finding-0",
+                "finding-1",
+                "finding-4",
+                "finding-5",
+                "finding-2",
+                "finding-3"
+            ],
+            "conflict_batches": [
+                [
+                    "finding-0",
+                    "finding-1"
+                ],
+                [
+                    "finding-3",
+                    "finding-4"
+                ]
+            ]
+        },
+        "sequence": 10
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A7",
+        "status": "started",
+        "timestamp": "2026-06-21T16:09:41.063783",
+        "message": "Generating validated patches",
+        "payload": null,
+        "sequence": 11
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A7",
+        "status": "completed",
+        "timestamp": "2026-06-21T16:09:41.104493",
+        "message": "Generated 1 patches from 1 plans",
+        "payload": {
+            "files": [
+                "vulnapi/api.py"
+            ],
+            "plan_count": 1
+        },
+        "sequence": 12
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A8",
+        "status": "started",
+        "timestamp": "2026-06-21T16:09:41.106148",
+        "message": "Running mutation validation gauntlet",
+        "payload": null,
+        "sequence": 13
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A8",
+        "status": "completed",
+        "timestamp": "2026-06-21T16:09:41.472654",
+        "message": "pytest=fail, mutant_survived=False",
+        "payload": {
+            "correctness_score": 0.0
+        },
+        "sequence": 14
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A7",
+        "status": "started",
+        "timestamp": "2026-06-21T16:09:41.475393",
+        "message": "Generating validated patches",
+        "payload": null,
+        "sequence": 15
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A7",
+        "status": "completed",
+        "timestamp": "2026-06-21T16:09:41.516589",
+        "message": "Generated 1 patches from 1 plans",
+        "payload": {
+            "files": [
+                "vulnapi/api.py"
+            ],
+            "plan_count": 1
+        },
+        "sequence": 16
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A8",
+        "status": "started",
+        "timestamp": "2026-06-21T16:09:41.518256",
+        "message": "Running mutation validation gauntlet",
+        "payload": null,
+        "sequence": 17
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A8",
+        "status": "completed",
+        "timestamp": "2026-06-21T16:09:41.867894",
+        "message": "pytest=fail, mutant_survived=False",
+        "payload": {
+            "correctness_score": 0.0
+        },
+        "sequence": 18
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A7",
+        "status": "started",
+        "timestamp": "2026-06-21T16:09:41.870387",
+        "message": "Generating validated patches",
+        "payload": null,
+        "sequence": 19
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A7",
+        "status": "completed",
+        "timestamp": "2026-06-21T16:09:41.911601",
+        "message": "Generated 1 patches from 1 plans",
+        "payload": {
+            "files": [
+                "vulnapi/api.py"
+            ],
+            "plan_count": 1
+        },
+        "sequence": 20
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A8",
+        "status": "started",
+        "timestamp": "2026-06-21T16:09:41.913482",
+        "message": "Running mutation validation gauntlet",
+        "payload": null,
+        "sequence": 21
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A8",
+        "status": "completed",
+        "timestamp": "2026-06-21T16:09:42.263492",
+        "message": "pytest=fail, mutant_survived=False",
+        "payload": {
+            "correctness_score": 0.0
+        },
+        "sequence": 22
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A7",
+        "status": "started",
+        "timestamp": "2026-06-21T16:09:42.265992",
+        "message": "Generating validated patches",
+        "payload": null,
+        "sequence": 23
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A7",
+        "status": "completed",
+        "timestamp": "2026-06-21T16:09:42.307863",
+        "message": "Generated 1 patches from 1 plans",
+        "payload": {
+            "files": [
+                "vulnapi/api.py"
+            ],
+            "plan_count": 1
+        },
+        "sequence": 24
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A8",
+        "status": "started",
+        "timestamp": "2026-06-21T16:09:42.309351",
+        "message": "Running mutation validation gauntlet",
+        "payload": null,
+        "sequence": 25
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A8",
+        "status": "completed",
+        "timestamp": "2026-06-21T16:09:42.660608",
+        "message": "pytest=fail, mutant_survived=False",
+        "payload": {
+            "correctness_score": 0.0
+        },
+        "sequence": 26
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A10",
+        "status": "started",
+        "timestamp": "2026-06-21T16:09:42.662925",
+        "message": "MCI verification and reviewability scoring",
+        "payload": null,
+        "sequence": 27
+    },
+    {
+        "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+        "agent_id": "A10",
+        "status": "completed",
+        "timestamp": "2026-06-21T16:09:42.966008",
+        "message": "PR routed as draft",
+        "payload": {
+            "pr_type": "draft",
+            "axis_scores": {
+                "correctness": 0.0,
+                "security": 0.0,
+                "fidelity": 100.0,
+                "scope_risk": 30.0
+            },
+            "pr_url": "https://github.com//vulnapi/pull/DRY_RUN",
+            "proof_bundle_hash": "213840cd7982c547b7c73b5ce7c2d3bf5dbc7ec2f64f3792ec79dd12bf61629b",
+            "reproduction_confidence": "exact_test"
+        },
+        "sequence": 28
+    }
+]

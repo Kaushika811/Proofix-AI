@@ -1,0 +1,22 @@
+{
+    "run_id": "b5b5268c-4807-4f48-b573-6c0587a565fb",
+    "status": "completed",
+    "current_agent": "fan-in",
+    "force_draft_pr": true,
+    "retry_count": 3,
+    "pr_decision": {
+        "pr_type": "draft",
+        "axis_scores": {
+            "correctness": 0.0,
+            "security": 0.0,
+            "fidelity": 100.0,
+            "scope_risk": 30.0
+        },
+        "pr_url": "https://github.com//vulnapi/pull/DRY_RUN",
+        "description_why": "Runtime failure: assert True is False\n +  where True = validate_token('eyJhbGciOiAibm9uZSJ9.eyJzdWIiOiAidXNlcjEiLCAiZXhwIjogMTc4MjA1NDU4MH0.sig'). Static finding: Possible SQL injection vector through string-based query construction.",
+        "description_what": "No changes detected.",
+        "review_note": "Validation retries exhausted. Manual verification required before merge.",
+        "phantom_changes_detected": false
+    },
+    "errors": []
+}

@@ -1,0 +1,63 @@
+{
+  "mode": "live_actual_agents_isolated_probe",
+  "provider": "mistral",
+  "case_count": 1,
+  "independent_real_world_defects_measured": 0,
+  "cases": [
+    {
+      "case": "expired_token",
+      "prior_generator_fixture": true,
+      "independent_real_world_defect": false,
+      "source_scope": [
+        "vulnapi/auth.py",
+        "tests/test_reported_issue.py"
+      ],
+      "source_sha256": "1e541995eba6ba1af5feb631e5cee3f9945465bf271caf3b729052a9d5c23975",
+      "test_sha256": "1cb7f121e479961da2c13c8d916f796724c2559f34e0d1d55c4e2430fb030ed0",
+      "issue_contract": {
+        "description": "Expired tokens are accepted. Reject expired tokens and retain valid tokens.",
+        "target_test": "tests/test_reported_issue.py::test_reported_issue",
+        "expected_behavior": "An expired token returns False and an unexpired token returns True.",
+        "target_file": "vulnapi/auth.py"
+      },
+      "calibration": {
+        "original": {
+          "target_test_passed": false,
+          "pytest_available": true,
+          "assertion_failure": true,
+          "regression_tests_passed": null
+        },
+        "correct_fix": {
+          "target_test_passed": true,
+          "pytest_available": true,
+          "assertion_failure": false,
+          "regression_tests_passed": true
+        },
+        "incorrect_patch": {
+          "target_test_passed": false,
+          "pytest_available": true,
+          "assertion_failure": true,
+          "regression_tests_passed": null
+        }
+      },
+      "reproduction_status": null,
+      "resolved_target": null,
+      "root_cause_source": null,
+      "planning_order_source": null,
+      "patch_count": 0,
+      "attempt_count": 0,
+      "failure_categories": [],
+      "recovery_decisions": [],
+      "status": "blocked",
+      "contract_preserved": true,
+      "target_test_passed": null,
+      "regression_tests_passed": null,
+      "mutation_status": null,
+      "repair_correctness": null,
+      "semantic_review": "pending_human_review",
+      "wrong_target_recovery": null,
+      "diagnosis_recovery": null,
+      "validation_failure_recovery": null
+    }
+  ]
+}

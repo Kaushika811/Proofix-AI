@@ -1,0 +1,179 @@
+{
+  "mode": "controlled_local_verification",
+  "live_model_measured": false,
+  "semantic_truth_outside_literal_return_claims": null,
+  "independent_repositories_measured": false,
+  "cases": [
+    {
+      "case": "supported",
+      "expected_source_located": true,
+      "source_located": true,
+      "source_location_method": "verified_exact",
+      "expected_claim_status": "supported",
+      "claim_status": "supported",
+      "claim_reason": "source_and_acceptance_test_agree",
+      "diagnosis_status": "supported",
+      "projected_diagnosis_status": "supported",
+      "evidence_stance": "supporting",
+      "reproduction_status": "CONFIRMED",
+      "patch_route": "blast_scope",
+      "draft_reason_codes": [],
+      "presented_as_confirmed": true,
+      "execution_attempted": true
+    },
+    {
+      "case": "false_claim_valid_citation",
+      "expected_source_located": true,
+      "source_located": true,
+      "source_location_method": "verified_exact",
+      "expected_claim_status": "contradicted",
+      "claim_status": "contradicted",
+      "claim_reason": "source_and_acceptance_test_agree",
+      "diagnosis_status": "contradicted",
+      "projected_diagnosis_status": "contradicted",
+      "evidence_stance": "contradicting",
+      "reproduction_status": "CONFIRMED",
+      "patch_route": "recovery_stop",
+      "draft_reason_codes": [
+        "citations_unverified",
+        "diagnosis_unverified"
+      ],
+      "presented_as_confirmed": false,
+      "execution_attempted": true
+    },
+    {
+      "case": "irrelevant_citation",
+      "expected_source_located": true,
+      "source_located": true,
+      "source_location_method": "verified_exact",
+      "expected_claim_status": "incomplete",
+      "claim_status": "incomplete",
+      "claim_reason": "test_does_not_assert_claimed_behavior",
+      "diagnosis_status": "incomplete",
+      "projected_diagnosis_status": "incomplete",
+      "evidence_stance": "neutral",
+      "reproduction_status": "CONFIRMED",
+      "patch_route": "recovery_stop",
+      "draft_reason_codes": [
+        "citations_unverified",
+        "diagnosis_unverified"
+      ],
+      "presented_as_confirmed": false,
+      "execution_attempted": true
+    },
+    {
+      "case": "conflicting_runtime",
+      "expected_source_located": true,
+      "source_located": true,
+      "source_location_method": "verified_exact",
+      "expected_claim_status": "incomplete",
+      "claim_status": "incomplete",
+      "claim_reason": "source_runtime_conflict",
+      "diagnosis_status": "incomplete",
+      "projected_diagnosis_status": "incomplete",
+      "evidence_stance": "neutral",
+      "reproduction_status": "CONFIRMED",
+      "patch_route": "recovery_stop",
+      "draft_reason_codes": [
+        "citations_unverified",
+        "diagnosis_unverified"
+      ],
+      "presented_as_confirmed": false,
+      "execution_attempted": true
+    },
+    {
+      "case": "unavailable_execution",
+      "expected_source_located": true,
+      "source_located": true,
+      "source_location_method": "verified_exact",
+      "expected_claim_status": "unavailable",
+      "claim_status": "unavailable",
+      "claim_reason": "execution_unavailable",
+      "diagnosis_status": "unavailable",
+      "projected_diagnosis_status": "unavailable",
+      "evidence_stance": "neutral",
+      "reproduction_status": "INFRA_ERROR",
+      "patch_route": "recovery_stop",
+      "draft_reason_codes": [
+        "citations_unverified",
+        "diagnosis_unverified",
+        "reproduction_infra_error"
+      ],
+      "presented_as_confirmed": false,
+      "execution_attempted": false
+    },
+    {
+      "case": "incomplete_investigation",
+      "expected_source_located": true,
+      "source_located": true,
+      "source_location_method": "verified_exact",
+      "expected_claim_status": "incomplete",
+      "claim_status": "incomplete",
+      "claim_reason": "no_independent_acceptance_test",
+      "diagnosis_status": "incomplete",
+      "projected_diagnosis_status": "incomplete",
+      "evidence_stance": "neutral",
+      "reproduction_status": "CONFIRMED",
+      "patch_route": "recovery_stop",
+      "draft_reason_codes": [
+        "citations_unverified",
+        "diagnosis_unverified"
+      ],
+      "presented_as_confirmed": false,
+      "execution_attempted": true
+    },
+    {
+      "case": "unstructured_false_claim",
+      "expected_source_located": true,
+      "source_located": true,
+      "source_location_method": "verified_exact",
+      "expected_claim_status": "incomplete",
+      "claim_status": "incomplete",
+      "claim_reason": "claim_outside_supported_grammar",
+      "diagnosis_status": "incomplete",
+      "projected_diagnosis_status": "incomplete",
+      "evidence_stance": "neutral",
+      "reproduction_status": "CONFIRMED",
+      "patch_route": "blast_scope",
+      "draft_reason_codes": [
+        "diagnosis_unverified"
+      ],
+      "presented_as_confirmed": false,
+      "execution_attempted": true
+    },
+    {
+      "case": "missing_source",
+      "expected_source_located": false,
+      "source_located": false,
+      "source_location_method": "unresolved",
+      "expected_claim_status": "incomplete",
+      "claim_status": "incomplete",
+      "claim_reason": "source_not_located",
+      "diagnosis_status": "incomplete",
+      "projected_diagnosis_status": "incomplete",
+      "evidence_stance": "contradicting",
+      "reproduction_status": "CONFIRMED",
+      "patch_route": "recovery_stop",
+      "draft_reason_codes": [
+        "citations_unverified",
+        "diagnosis_unverified"
+      ],
+      "presented_as_confirmed": false,
+      "execution_attempted": true
+    }
+  ],
+  "metrics": {
+    "cases": 8,
+    "source_location_correct": 8,
+    "source_location_true_positives": 7,
+    "claim_classification_correct": 8,
+    "supported": 1,
+    "contradicted": 1,
+    "incomplete": 5,
+    "unavailable": 1,
+    "false_supports": 0,
+    "non_supported_as_confirmed": 0,
+    "contradicted_to_patch": 0,
+    "hypothesis_patch_routes": 1
+  }
+}

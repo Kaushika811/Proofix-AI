@@ -1,0 +1,197 @@
+{
+  "mode": "live",
+  "dataset": "Three seeded, executable defects in ProoFix's vulnapi fixture",
+  "model_quality_measured": true,
+  "live_model_attempted": true,
+  "cases": [
+    {
+      "case": "expired_token",
+      "generation_mode": "live",
+      "issue": "An expired token is accepted. Reject expired tokens and keep unexpired tokens valid.",
+      "expected_behavior": "validate_token returns False when exp is in the past and True when exp is in the future.",
+      "generation": "rejected",
+      "generation_reason": "Generate one undecorated test_reported_issue function",
+      "candidate_code": null,
+      "candidate_rationale": null,
+      "attempts": 2,
+      "candidates": [
+        {
+          "code": "import base64\nimport json\nimport time\n\nfrom vulnapi.auth import validate_token\n\n\ndef test_reported_issue():\n    # Test expired token is rejected\n    expired_token = _make_token(exp=int(time.time()) - 3600)\n    assert validate_token(expired_token) is False\n\n    # Test unexpired token is accepted\n    valid_token = _make_token(exp=int(time.time()) + 3600)\n    assert validate_token(valid_token) is True\n",
+          "rationale": "The test checks that an expired token (with an exp in the past) is rejected and an unexpired token (with an exp in the future) is accepted, as specified in the expected behavior.",
+          "status": "rejected",
+          "reason": "Test references undefined helper or name: _make_token",
+          "validation_errors": [
+            "Test references undefined helper or name: _make_token"
+          ]
+        },
+        {
+          "code": "import base64\nimport json\nimport time\n\nfrom vulnapi.auth import validate_token\n\ndef test_reported_issue():\n    # Test expired token is rejected\n    expired_token = _make_token(exp=int(time.time()) - 3600)\n    assert validate_token(expired_token) is False\n    \n    # Test unexpired token is accepted\n    valid_token = _make_token(exp=int(time.time()) + 3600)\n    assert validate_token(valid_token) is True\n\ndef _make_token(sub: str = \"user1\", exp: int | None = None) -> str:\n    if exp is None:\n        exp = int(time.time()) + 3600\n    header = base64.urlsafe_b64encode(json.dumps({\"alg\": \"none\"}).encode()).decode().rstrip(\"=\")\n    payload = base64.urlsafe_b64encode(json.dumps({\"sub\": sub, \"exp\": exp}).encode()).decode().rstrip(\"=\")\n    return f\"{header}.{payload}.sig\"",
+          "rationale": "The test checks that an expired token is rejected and an unexpired token is accepted. The _make_token helper is defined inline to create tokens with specified expiration times.",
+          "status": "rejected",
+          "reason": "Generate one undecorated test_reported_issue function",
+          "validation_errors": [
+            "Generate one undecorated test_reported_issue function"
+          ]
+        }
+      ]
+    },
+    {
+      "case": "admin_bypass",
+      "generation_mode": "live",
+      "issue": "Admin mode bypasses authentication for admin routes. The controlled test runner sets ADMIN_MODE=true.",
+      "expected_behavior": "With ADMIN_MODE=true, unauthenticated admin requests are denied and valid-token requests are allowed.",
+      "generation": "generated",
+      "generation_reason": null,
+      "candidate_code": "import pytest\nimport time\n\nfrom vulnapi.middleware import admin_middleware\nfrom tests.test_auth import _make_token\n\n\ndef test_reported_issue():\n    # Test unauthenticated admin request is denied\n    headers = {}\n    assert admin_middleware(headers, \"/admin/users\") is False\n    \n    # Test valid-token admin request is allowed\n    token = _make_token(exp=int(time.time()) + 3600)\n    headers = {\"Authorization\": f\"Bearer {token}\"}\n    assert admin_middleware(headers, \"/admin/users\") is True\n",
+      "candidate_rationale": "The test verifies that unauthenticated admin requests are denied and valid-token requests are allowed when ADMIN_MODE is true. It covers both the rejected invalid input (unauthenticated request) and the accepted valid input (valid-token request).",
+      "attempts": 1,
+      "candidates": [
+        {
+          "code": "import pytest\nimport time\n\nfrom vulnapi.middleware import admin_middleware\nfrom tests.test_auth import _make_token\n\n\ndef test_reported_issue():\n    # Test unauthenticated admin request is denied\n    headers = {}\n    assert admin_middleware(headers, \"/admin/users\") is False\n    \n    # Test valid-token admin request is allowed\n    token = _make_token(exp=int(time.time()) + 3600)\n    headers = {\"Authorization\": f\"Bearer {token}\"}\n    assert admin_middleware(headers, \"/admin/users\") is True\n",
+          "rationale": "The test verifies that unauthenticated admin requests are denied and valid-token requests are allowed when ADMIN_MODE is true. It covers both the rejected invalid input (unauthenticated request) and the accepted valid input (valid-token request).",
+          "status": "accepted"
+        }
+      ],
+      "original": {
+        "outcome": "behavioral_assertion_failed",
+        "exit_code": 1,
+        "pytest_outcome": "failed",
+        "failure_type": "AssertionError",
+        "detail": null
+      },
+      "correct_fix": {
+        "outcome": "passed",
+        "exit_code": 0,
+        "pytest_outcome": "passed",
+        "failure_type": null,
+        "detail": null
+      },
+      "incorrect_patch": {
+        "outcome": "behavioral_assertion_failed",
+        "exit_code": 1,
+        "pytest_outcome": "failed",
+        "failure_type": "AssertionError",
+        "detail": null
+      },
+      "unrelated_patch": {
+        "outcome": "behavioral_assertion_failed",
+        "exit_code": 1,
+        "pytest_outcome": "failed",
+        "failure_type": "AssertionError",
+        "detail": null
+      },
+      "behavioral_test_validity": null,
+      "semantic_review": "pending_human_review",
+      "correct_fix_detected": true,
+      "incorrect_patch_rejected": true,
+      "unrelated_patch_rejected": true
+    },
+    {
+      "case": "sql_injection",
+      "generation_mode": "live",
+      "issue": "lookup_user accepts an injected SQL expression as an ID.",
+      "expected_behavior": "lookup_user('1 OR 1=1') returns None while lookup_user('1') still returns the admin record.",
+      "generation": "generated",
+      "generation_reason": null,
+      "candidate_code": "import pytest\nfrom vulnapi.api import lookup_user\n\ndef test_reported_issue():\n    # Test that lookup_user rejects an injected SQL expression\n    result = lookup_user('1 OR 1=1')\n    assert result is None\n    \n    # Test that lookup_user still returns the admin record for a valid ID\n    result = lookup_user('1')\n    assert result['id'] == 1\n    assert result['name'] == 'admin'\n",
+      "candidate_rationale": "The test verifies that lookup_user correctly handles an injected SQL expression by returning None, and that it still returns the admin record for a valid ID. The assertions check the expected behavior by asserting the result is None for the injected SQL expression and the id and name fields for the valid ID.",
+      "attempts": 2,
+      "candidates": [
+        {
+          "code": "def test_reported_issue():\n    assert lookup_user('1 OR 1=1') is None\n    assert lookup_user('1') == {'id': 1, 'name': 'admin', 'email': '<REDACTED_EMAIL>'}",
+          "rationale": "The test verifies that lookup_user correctly handles SQL injection attempts by returning None for an invalid input ('1 OR 1=1') and the expected admin record for a valid input ('1').",
+          "status": "rejected",
+          "reason": "Test references undefined helper or name: lookup_user; Test uses a placeholder or redacted value instead of real test data; Generated test must exercise an imported repository API",
+          "validation_errors": [
+            "Test references undefined helper or name: lookup_user",
+            "Test uses a placeholder or redacted value instead of real test data",
+            "Generated test must exercise an imported repository API"
+          ]
+        },
+        {
+          "code": "import pytest\nfrom vulnapi.api import lookup_user\n\ndef test_reported_issue():\n    # Test that lookup_user rejects an injected SQL expression\n    result = lookup_user('1 OR 1=1')\n    assert result is None\n    \n    # Test that lookup_user still returns the admin record for a valid ID\n    result = lookup_user('1')\n    assert result['id'] == 1\n    assert result['name'] == 'admin'\n",
+          "rationale": "The test verifies that lookup_user correctly handles an injected SQL expression by returning None, and that it still returns the admin record for a valid ID. The assertions check the expected behavior by asserting the result is None for the injected SQL expression and the id and name fields for the valid ID.",
+          "status": "accepted"
+        }
+      ],
+      "original": {
+        "outcome": "behavioral_assertion_failed",
+        "exit_code": 1,
+        "pytest_outcome": "failed",
+        "failure_type": "AssertionError",
+        "detail": null
+      },
+      "correct_fix": {
+        "outcome": "passed",
+        "exit_code": 0,
+        "pytest_outcome": "passed",
+        "failure_type": null,
+        "detail": null
+      },
+      "incorrect_patch": {
+        "outcome": "environment_or_execution_failure",
+        "exit_code": 1,
+        "pytest_outcome": "failed",
+        "failure_type": "TypeError",
+        "detail": "TypeError: 'NoneType' object is not subscriptable"
+      },
+      "unrelated_patch": {
+        "outcome": "behavioral_assertion_failed",
+        "exit_code": 1,
+        "pytest_outcome": "failed",
+        "failure_type": "AssertionError",
+        "detail": null
+      },
+      "missing_database_probe": {
+        "outcome": "environment_or_execution_failure",
+        "exit_code": 1,
+        "pytest_outcome": "failed",
+        "failure_type": "sqlite3.OperationalError",
+        "detail": "sqlite3.OperationalError: no such table: users"
+      },
+      "behavioral_test_validity": null,
+      "semantic_review": "pending_human_review",
+      "correct_fix_detected": true,
+      "incorrect_patch_rejected": false,
+      "unrelated_patch_rejected": true
+    }
+  ],
+  "vacuous_test_probe": {
+    "generation_mode": "controlled_gate_probe",
+    "generation": "generated",
+    "generation_reason": null,
+    "candidate_code": "from vulnapi.auth import validate_token\n\ndef test_reported_issue():\n    assert validate_token(\"malformed\") is False\n",
+    "original": {
+      "outcome": "passed",
+      "exit_code": 0,
+      "pytest_outcome": "passed",
+      "failure_type": null,
+      "detail": null
+    },
+    "detected_as_unconfirmed": true
+  },
+  "ambiguous_expectation_probe": {
+    "issue": "Admin mode behaves oddly.",
+    "expected_behavior": "Handle admin access appropriately.",
+    "generation": "needs_clarification",
+    "generation_reason": "Expected behavior needs a concrete, observable result for a defined input or condition",
+    "attempts": 0,
+    "candidates": [],
+    "abstained_for_ambiguity": true,
+    "rejected_by_test_validator": false
+  },
+  "metrics": {
+    "behavioral_test_validity": null,
+    "correct_fix_detection": 2,
+    "incorrect_patch_rejection": 1,
+    "unrelated_patch_rejection": 2,
+    "clear_cases": 3,
+    "candidates_generated": 2,
+    "candidates_rejected": 1,
+    "patch_evaluations": 2,
+    "environment_related_false_failures": 1,
+    "environment_failures_counted_as_behavior": 0,
+    "vacuous_test_detected": true,
+    "ambiguous_request_abstained": true
+  }
+}

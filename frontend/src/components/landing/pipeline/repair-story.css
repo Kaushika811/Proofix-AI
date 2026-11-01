@@ -1,0 +1,91 @@
+.landing-page {
+/* Scroll distance drives one shared, pinned viewport rather than spacing cards apart. */
+.repair-walkthrough {
+  --scene-distance: 150svh;
+  position: relative;
+  height: calc(4 * var(--scene-distance) + 100svh);
+}
+.repair-scroll-track {
+  position: absolute;
+  inset-inline: 0;
+  height: var(--scene-distance);
+  pointer-events: none;
+}
+.repair-scroll-track[data-moment='4'] {
+  height: calc(var(--scene-distance) + 100svh);
+}
+.repair-viewport {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  padding: 88px clamp(24px, 4vw, 64px) 44px;
+  background: var(--background);
+}
+.repair-stage-container {
+  max-width: 1152px;
+  height: 100%;
+  margin-inline: auto;
+}
+.repair-moment {
+  height: 100%;
+  min-height: 0;
+}
+.repair-moment[hidden] { display: none; }
+.repair-moment:not([hidden]) {
+  animation: repair-scene-enter 220ms ease-out both;
+}
+.repair-moment-frame {
+  height: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  align-items: center;
+  gap: clamp(24px, 4vw, 64px);
+  min-height: 0;
+}
+.repair-moment-copy { max-height: 100%; overflow: auto; }
+.repair-scene-visual {
+  min-width: 0;
+  max-height: 100%;
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #7dd3fc55 transparent;
+}
+.repair-scene-visual:focus-visible { outline: 1px solid #7dd3fc; outline-offset: 4px; }
+.repair-scroll-hint {
+  position: absolute;
+  bottom: 14px;
+  inset-inline: 0;
+  text-align: center;
+  color: #8593a5;
+  font: 10px ui-monospace, monospace;
+  pointer-events: none;
+}
+@media (max-width: 767px) {
+  .repair-viewport { padding: 80px 20px 64px; }
+  .repair-moment-frame {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: 16px;
+  }
+  .repair-moment-copy h3 { font-size: 26px; margin-top: 8px; }
+  .repair-moment-copy > p:nth-of-type(2) { font-size: 12px; margin-top: 10px; }
+  .repair-takeaway { display: none; }
+  .repair-scene-visual { align-self: start; }
+  .repair-scroll-hint { text-align: left; padding-left: 20px; bottom: 24px; font-size: 9px; }
+}
+@media (max-height: 740px) and (min-width: 768px) {
+  .repair-viewport { padding-top: 72px; padding-bottom: 36px; }
+  .repair-moment-copy h3 { font-size: clamp(28px, 3vw, 42px); }
+  .repair-moment-copy > p:nth-of-type(2) { margin-top: 14px; }
+  .repair-takeaway { margin-top: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .repair-walkthrough { --scene-distance: 100svh; }
+  .repair-moment:not([hidden]) { animation: none; }
+}
+
+}
+@keyframes repair-scene-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}

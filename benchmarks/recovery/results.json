@@ -1,0 +1,416 @@
+{
+  "mode": "controlled_graph_recovery",
+  "scope": "Real LangGraph routing, A8, pytest, integrity checks, and persistence; scripted A0-A7 proposals and A9-A10",
+  "live_model_measured": false,
+  "cases": [
+    {
+      "case": "implementation",
+      "baseline": {
+        "target_test_passed": false,
+        "failure": "assert True is False\n +  where True = validate_token(-1)"
+      },
+      "status": "completed",
+      "trace": [
+        "prepare_repo",
+        "environment_precheck",
+        "index_repository",
+        "parallel_intel",
+        "layer1_fan_in",
+        "reproduction_gate",
+        "investigate",
+        "blast_scope",
+        "engineer_context",
+        "plan_fixes",
+        "generate_code",
+        "validate_mutation",
+        "generate_code",
+        "validate_mutation",
+        "validate_security",
+        "route_pr"
+      ],
+      "attempts": [
+        {
+          "number": 1,
+          "target": "auth.py",
+          "diagnosis": "expiry logic suspected",
+          "patch_hash": "832bca9c314bf1dd4576f91e42395d4774176f8b67d284d97d9f4a3647fb07c5",
+          "failing_test": "tests/test_proofix_recovery.py::test_reported_issue",
+          "failure": "assert True is False\n +  where True = validate_token(-1)",
+          "validation_status": "executed",
+          "failure_category": "implementation_failure",
+          "recovery_decision": "generate_code",
+          "reason": "Target behavior still fails by assertion",
+          "changed_from_previous": null
+        },
+        {
+          "number": 2,
+          "target": "auth.py",
+          "diagnosis": "expiry logic suspected",
+          "patch_hash": "3465c9af4b90dde5c296c7443e7616ae130eb11db37106d024e194eab9b80556",
+          "failing_test": null,
+          "failure": null,
+          "validation_status": "executed",
+          "failure_category": null,
+          "recovery_decision": "validate_security",
+          "reason": "Validation passed",
+          "changed_from_previous": {
+            "target": false,
+            "diagnosis": false,
+            "patch": true
+          }
+        }
+      ],
+      "retry_count": 1,
+      "contract_preserved": true,
+      "generated_test_unchanged": true,
+      "persisted_attempts": true,
+      "final_target_passed": true,
+      "recovery_blocked_reason": null
+    },
+    {
+      "case": "wrong_target",
+      "baseline": {
+        "target_test_passed": false,
+        "failure": "assert True is False\n +  where True = validate_token(-1)"
+      },
+      "status": "completed",
+      "trace": [
+        "prepare_repo",
+        "environment_precheck",
+        "index_repository",
+        "parallel_intel",
+        "layer1_fan_in",
+        "reproduction_gate",
+        "investigate",
+        "blast_scope",
+        "engineer_context",
+        "plan_fixes",
+        "generate_code",
+        "validate_mutation",
+        "blast_scope",
+        "engineer_context",
+        "plan_fixes",
+        "generate_code",
+        "validate_mutation",
+        "validate_security",
+        "route_pr"
+      ],
+      "attempts": [
+        {
+          "number": 1,
+          "target": "auth.py",
+          "diagnosis": "expiry logic suspected",
+          "patch_hash": "eb3547957441719704cdfb794c19a74aaa89e80a447491f7bb1c8559cecde125",
+          "failing_test": "tests/test_proofix_recovery.py::test_reported_issue",
+          "failure": "assert True is False\n +  where True = validate_token(-1)",
+          "validation_status": "executed",
+          "failure_category": "wrong_target",
+          "recovery_decision": "blast_scope",
+          "reason": "Patch does not cover the resolved issue target",
+          "changed_from_previous": null
+        },
+        {
+          "number": 2,
+          "target": "auth.py",
+          "diagnosis": "expiry logic suspected",
+          "patch_hash": "3465c9af4b90dde5c296c7443e7616ae130eb11db37106d024e194eab9b80556",
+          "failing_test": null,
+          "failure": null,
+          "validation_status": "executed",
+          "failure_category": null,
+          "recovery_decision": "validate_security",
+          "reason": "Validation passed",
+          "changed_from_previous": {
+            "target": false,
+            "diagnosis": false,
+            "patch": true
+          }
+        }
+      ],
+      "retry_count": 1,
+      "contract_preserved": true,
+      "generated_test_unchanged": true,
+      "persisted_attempts": true,
+      "final_target_passed": true,
+      "recovery_blocked_reason": null
+    },
+    {
+      "case": "diagnosis",
+      "baseline": {
+        "target_test_passed": false,
+        "failure": "assert True is False\n +  where True = validate_token(-1)"
+      },
+      "status": "completed",
+      "trace": [
+        "prepare_repo",
+        "environment_precheck",
+        "index_repository",
+        "parallel_intel",
+        "layer1_fan_in",
+        "reproduction_gate",
+        "investigate",
+        "blast_scope",
+        "engineer_context",
+        "plan_fixes",
+        "generate_code",
+        "validate_mutation",
+        "investigate",
+        "blast_scope",
+        "engineer_context",
+        "plan_fixes",
+        "generate_code",
+        "validate_mutation",
+        "validate_security",
+        "route_pr"
+      ],
+      "attempts": [
+        {
+          "number": 1,
+          "target": "auth.py",
+          "diagnosis": "expiry logic suspected",
+          "patch_hash": "832bca9c314bf1dd4576f91e42395d4774176f8b67d284d97d9f4a3647fb07c5",
+          "failing_test": "tests/test_proofix_recovery.py::test_reported_issue",
+          "failure": "assert True is False\n +  where True = validate_token(-1)",
+          "validation_status": "executed",
+          "failure_category": "incorrect_diagnosis",
+          "recovery_decision": "investigate",
+          "reason": "Recorded source or runtime evidence contradicts the diagnosis",
+          "changed_from_previous": null
+        },
+        {
+          "number": 2,
+          "target": "auth.py",
+          "diagnosis": "expiry comparison missing",
+          "patch_hash": "3465c9af4b90dde5c296c7443e7616ae130eb11db37106d024e194eab9b80556",
+          "failing_test": null,
+          "failure": null,
+          "validation_status": "executed",
+          "failure_category": null,
+          "recovery_decision": "validate_security",
+          "reason": "Validation passed",
+          "changed_from_previous": {
+            "target": false,
+            "diagnosis": true,
+            "patch": true
+          }
+        }
+      ],
+      "retry_count": 1,
+      "contract_preserved": true,
+      "generated_test_unchanged": true,
+      "persisted_attempts": true,
+      "final_target_passed": true,
+      "recovery_blocked_reason": null
+    },
+    {
+      "case": "environment",
+      "baseline": {
+        "target_test_passed": false,
+        "failure": "assert True is False\n +  where True = validate_token(-1)"
+      },
+      "status": "blocked",
+      "trace": [
+        "prepare_repo",
+        "environment_precheck",
+        "index_repository",
+        "parallel_intel",
+        "layer1_fan_in",
+        "reproduction_gate",
+        "investigate",
+        "blast_scope",
+        "engineer_context",
+        "plan_fixes",
+        "generate_code",
+        "validate_mutation"
+      ],
+      "attempts": [
+        {
+          "number": 1,
+          "target": "auth.py",
+          "diagnosis": "expiry logic suspected",
+          "patch_hash": "8622634e124445d742773bf60352cb3263347aa75d0f86ef71415193d92bf83c",
+          "failing_test": "tests/test_proofix_recovery.py::test_reported_issue",
+          "failure": "ModuleNotFoundError: No module named 'missing_recovery_benchmark_dependency'",
+          "validation_status": "executed",
+          "failure_category": "environment_failure",
+          "recovery_decision": "recovery_stop",
+          "reason": "Validation raised an execution or environment error",
+          "changed_from_previous": null
+        }
+      ],
+      "retry_count": 0,
+      "contract_preserved": true,
+      "generated_test_unchanged": true,
+      "persisted_attempts": true,
+      "final_target_passed": false,
+      "recovery_blocked_reason": "Validation raised an execution or environment error"
+    },
+    {
+      "case": "insufficient",
+      "baseline": {
+        "target_test_passed": false,
+        "failure": "assert True is False\n +  where True = validate_token(-1)"
+      },
+      "status": "blocked",
+      "trace": [
+        "prepare_repo",
+        "environment_precheck",
+        "index_repository",
+        "parallel_intel",
+        "layer1_fan_in",
+        "reproduction_gate",
+        "investigate",
+        "blast_scope",
+        "engineer_context",
+        "plan_fixes",
+        "generate_code",
+        "validate_mutation",
+        "investigate"
+      ],
+      "attempts": [
+        {
+          "number": 1,
+          "target": "auth.py",
+          "diagnosis": "expiry logic suspected",
+          "patch_hash": "832bca9c314bf1dd4576f91e42395d4774176f8b67d284d97d9f4a3647fb07c5",
+          "failing_test": "tests/test_proofix_recovery.py::test_reported_issue",
+          "failure": "assert True is False\n +  where True = validate_token(-1)",
+          "validation_status": "executed",
+          "failure_category": "insufficient_evidence",
+          "recovery_decision": "investigate",
+          "reason": "Root-cause or mutation evidence is incomplete",
+          "changed_from_previous": null
+        }
+      ],
+      "retry_count": 1,
+      "contract_preserved": true,
+      "generated_test_unchanged": true,
+      "persisted_attempts": true,
+      "final_target_passed": false,
+      "recovery_blocked_reason": "Root-cause or mutation evidence is incomplete"
+    },
+    {
+      "case": "duplicate",
+      "baseline": {
+        "target_test_passed": false,
+        "failure": "assert True is False\n +  where True = validate_token(-1)"
+      },
+      "status": "blocked",
+      "trace": [
+        "prepare_repo",
+        "environment_precheck",
+        "index_repository",
+        "parallel_intel",
+        "layer1_fan_in",
+        "reproduction_gate",
+        "investigate",
+        "blast_scope",
+        "engineer_context",
+        "plan_fixes",
+        "generate_code",
+        "validate_mutation",
+        "generate_code"
+      ],
+      "attempts": [
+        {
+          "number": 1,
+          "target": "auth.py",
+          "diagnosis": "expiry logic suspected",
+          "patch_hash": "832bca9c314bf1dd4576f91e42395d4774176f8b67d284d97d9f4a3647fb07c5",
+          "failing_test": "tests/test_proofix_recovery.py::test_reported_issue",
+          "failure": "assert True is False\n +  where True = validate_token(-1)",
+          "validation_status": "executed",
+          "failure_category": "implementation_failure",
+          "recovery_decision": "generate_code",
+          "reason": "Target behavior still fails by assertion",
+          "changed_from_previous": null
+        },
+        {
+          "number": 2,
+          "target": "auth.py",
+          "diagnosis": "expiry logic suspected",
+          "patch_hash": "832bca9c314bf1dd4576f91e42395d4774176f8b67d284d97d9f4a3647fb07c5",
+          "failing_test": null,
+          "failure": null,
+          "validation_status": "not_executed",
+          "failure_category": null,
+          "recovery_decision": "recovery_stop",
+          "reason": "Generated patch exactly repeats a failed attempt; validation was skipped",
+          "changed_from_previous": {
+            "target": false,
+            "diagnosis": false,
+            "patch": false
+          }
+        }
+      ],
+      "retry_count": 1,
+      "contract_preserved": true,
+      "generated_test_unchanged": true,
+      "persisted_attempts": true,
+      "final_target_passed": false,
+      "recovery_blocked_reason": "Generated patch exactly repeats a failed attempt; validation was skipped"
+    },
+    {
+      "case": "budget",
+      "baseline": {
+        "target_test_passed": false,
+        "failure": "assert True is False\n +  where True = validate_token(-1)"
+      },
+      "status": "blocked",
+      "trace": [
+        "prepare_repo",
+        "environment_precheck",
+        "index_repository",
+        "parallel_intel",
+        "layer1_fan_in",
+        "reproduction_gate",
+        "investigate",
+        "blast_scope",
+        "engineer_context",
+        "plan_fixes",
+        "generate_code",
+        "validate_mutation",
+        "generate_code",
+        "validate_mutation"
+      ],
+      "attempts": [
+        {
+          "number": 1,
+          "target": "auth.py",
+          "diagnosis": "expiry logic suspected",
+          "patch_hash": "832bca9c314bf1dd4576f91e42395d4774176f8b67d284d97d9f4a3647fb07c5",
+          "failing_test": "tests/test_proofix_recovery.py::test_reported_issue",
+          "failure": "assert True is False\n +  where True = validate_token(-1)",
+          "validation_status": "executed",
+          "failure_category": "implementation_failure",
+          "recovery_decision": "generate_code",
+          "reason": "Target behavior still fails by assertion",
+          "changed_from_previous": null
+        },
+        {
+          "number": 2,
+          "target": "auth.py",
+          "diagnosis": "expiry logic suspected",
+          "patch_hash": "5e8bd5417e9ff56ec672259071e62afa2a5ae4ec27baa0c89d6e6ef9c5181b76",
+          "failing_test": "tests/test_proofix_recovery.py::test_reported_issue",
+          "failure": "assert True is False\n +  where True = validate_token(-1)",
+          "validation_status": "executed",
+          "failure_category": "implementation_failure",
+          "recovery_decision": "recovery_stop",
+          "reason": "Recovery budget exhausted",
+          "changed_from_previous": {
+            "target": false,
+            "diagnosis": false,
+            "patch": true
+          }
+        }
+      ],
+      "retry_count": 1,
+      "contract_preserved": true,
+      "generated_test_unchanged": true,
+      "persisted_attempts": true,
+      "final_target_passed": false,
+      "recovery_blocked_reason": "Recovery budget exhausted"
+    }
+  ]
+}

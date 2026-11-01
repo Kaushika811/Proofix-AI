@@ -1,0 +1,208 @@
+{
+  "mode": "calibration",
+  "dataset": "Three seeded, executable defects in ProoFix's vulnapi fixture",
+  "model_quality_measured": false,
+  "live_model_attempted": false,
+  "cases": [
+    {
+      "case": "expired_token",
+      "generation_mode": "calibration",
+      "issue": "An expired token is accepted. Reject expired tokens and keep unexpired tokens valid.",
+      "expected_behavior": "validate_token returns False when exp is in the past and True when exp is in the future.",
+      "generation": "generated",
+      "generation_reason": null,
+      "candidate_code": "import base64\nimport json\nimport time\nfrom vulnapi.auth import validate_token\n\ndef test_reported_issue():\n    expired_payload = base64.urlsafe_b64encode(json.dumps({\"sub\": \"user1\", \"exp\": int(time.time()) - 3600}).encode()).decode().rstrip(\"=\")\n    valid_payload = base64.urlsafe_b64encode(json.dumps({\"sub\": \"user1\", \"exp\": int(time.time()) + 3600}).encode()).decode().rstrip(\"=\")\n    assert validate_token(\"header.\" + expired_payload + \".signature\") is False\n    assert validate_token(\"header.\" + valid_payload + \".signature\") is True\n",
+      "candidate_rationale": "Controlled benchmark candidate; no model call",
+      "attempts": 1,
+      "candidates": [
+        {
+          "code": "import base64\nimport json\nimport time\nfrom vulnapi.auth import validate_token\n\ndef test_reported_issue():\n    expired_payload = base64.urlsafe_b64encode(json.dumps({\"sub\": \"user1\", \"exp\": int(time.time()) - 3600}).encode()).decode().rstrip(\"=\")\n    valid_payload = base64.urlsafe_b64encode(json.dumps({\"sub\": \"user1\", \"exp\": int(time.time()) + 3600}).encode()).decode().rstrip(\"=\")\n    assert validate_token(\"header.\" + expired_payload + \".signature\") is False\n    assert validate_token(\"header.\" + valid_payload + \".signature\") is True\n",
+          "rationale": "Controlled benchmark candidate; no model call",
+          "status": "accepted"
+        }
+      ],
+      "original": {
+        "outcome": "behavioral_assertion_failed",
+        "exit_code": 1,
+        "pytest_outcome": "failed",
+        "failure_type": "AssertionError",
+        "detail": null
+      },
+      "correct_fix": {
+        "outcome": "passed",
+        "exit_code": 0,
+        "pytest_outcome": "passed",
+        "failure_type": null,
+        "detail": null
+      },
+      "incorrect_patch": {
+        "outcome": "behavioral_assertion_failed",
+        "exit_code": 1,
+        "pytest_outcome": "failed",
+        "failure_type": "AssertionError",
+        "detail": null
+      },
+      "unrelated_patch": {
+        "outcome": "behavioral_assertion_failed",
+        "exit_code": 1,
+        "pytest_outcome": "failed",
+        "failure_type": "AssertionError",
+        "detail": null
+      },
+      "behavioral_test_validity": true,
+      "semantic_review": "controlled_candidate_with_known_expected_behavior",
+      "correct_fix_detected": true,
+      "incorrect_patch_rejected": true,
+      "unrelated_patch_rejected": true
+    },
+    {
+      "case": "admin_bypass",
+      "generation_mode": "calibration",
+      "issue": "Admin mode bypasses authentication for admin routes. The controlled test runner sets ADMIN_MODE=true.",
+      "expected_behavior": "With ADMIN_MODE=true, unauthenticated admin requests are denied and valid-token requests are allowed.",
+      "generation": "generated",
+      "generation_reason": null,
+      "candidate_code": "import base64\nimport json\nimport time\nfrom vulnapi.middleware import admin_middleware\n\ndef test_reported_issue():\n    payload = base64.urlsafe_b64encode(json.dumps({\"sub\": \"user1\", \"exp\": int(time.time()) + 3600}).encode()).decode().rstrip(\"=\")\n    token = \"header.\" + payload + \".signature\"\n    assert admin_middleware({}, \"/admin/users\") is False\n    assert admin_middleware({\"Authorization\": \"Bearer \" + token}, \"/admin/users\") is True\n",
+      "candidate_rationale": "Controlled benchmark candidate; no model call",
+      "attempts": 1,
+      "candidates": [
+        {
+          "code": "import base64\nimport json\nimport time\nfrom vulnapi.middleware import admin_middleware\n\ndef test_reported_issue():\n    payload = base64.urlsafe_b64encode(json.dumps({\"sub\": \"user1\", \"exp\": int(time.time()) + 3600}).encode()).decode().rstrip(\"=\")\n    token = \"header.\" + payload + \".signature\"\n    assert admin_middleware({}, \"/admin/users\") is False\n    assert admin_middleware({\"Authorization\": \"Bearer \" + token}, \"/admin/users\") is True\n",
+          "rationale": "Controlled benchmark candidate; no model call",
+          "status": "accepted"
+        }
+      ],
+      "original": {
+        "outcome": "behavioral_assertion_failed",
+        "exit_code": 1,
+        "pytest_outcome": "failed",
+        "failure_type": "AssertionError",
+        "detail": null
+      },
+      "correct_fix": {
+        "outcome": "passed",
+        "exit_code": 0,
+        "pytest_outcome": "passed",
+        "failure_type": null,
+        "detail": null
+      },
+      "incorrect_patch": {
+        "outcome": "behavioral_assertion_failed",
+        "exit_code": 1,
+        "pytest_outcome": "failed",
+        "failure_type": "AssertionError",
+        "detail": null
+      },
+      "unrelated_patch": {
+        "outcome": "behavioral_assertion_failed",
+        "exit_code": 1,
+        "pytest_outcome": "failed",
+        "failure_type": "AssertionError",
+        "detail": null
+      },
+      "behavioral_test_validity": true,
+      "semantic_review": "controlled_candidate_with_known_expected_behavior",
+      "correct_fix_detected": true,
+      "incorrect_patch_rejected": true,
+      "unrelated_patch_rejected": true
+    },
+    {
+      "case": "sql_injection",
+      "generation_mode": "calibration",
+      "issue": "lookup_user accepts an injected SQL expression as an ID.",
+      "expected_behavior": "lookup_user('1 OR 1=1') returns None while lookup_user('1') still returns the admin record.",
+      "generation": "generated",
+      "generation_reason": null,
+      "candidate_code": "from vulnapi.api import lookup_user\n\ndef test_reported_issue():\n    assert lookup_user(\"1 OR 1=1\") is None\n    user = lookup_user(\"1\")\n    assert user is not None\n    assert user[\"name\"] == \"admin\"\n",
+      "candidate_rationale": "Controlled benchmark candidate; no model call",
+      "attempts": 1,
+      "candidates": [
+        {
+          "code": "from vulnapi.api import lookup_user\n\ndef test_reported_issue():\n    assert lookup_user(\"1 OR 1=1\") is None\n    user = lookup_user(\"1\")\n    assert user is not None\n    assert user[\"name\"] == \"admin\"\n",
+          "rationale": "Controlled benchmark candidate; no model call",
+          "status": "accepted"
+        }
+      ],
+      "original": {
+        "outcome": "behavioral_assertion_failed",
+        "exit_code": 1,
+        "pytest_outcome": "failed",
+        "failure_type": "AssertionError",
+        "detail": null
+      },
+      "correct_fix": {
+        "outcome": "passed",
+        "exit_code": 0,
+        "pytest_outcome": "passed",
+        "failure_type": null,
+        "detail": null
+      },
+      "incorrect_patch": {
+        "outcome": "behavioral_assertion_failed",
+        "exit_code": 1,
+        "pytest_outcome": "failed",
+        "failure_type": "assert None is not None",
+        "detail": null
+      },
+      "unrelated_patch": {
+        "outcome": "behavioral_assertion_failed",
+        "exit_code": 1,
+        "pytest_outcome": "failed",
+        "failure_type": "AssertionError",
+        "detail": null
+      },
+      "missing_database_probe": {
+        "outcome": "environment_or_execution_failure",
+        "exit_code": 1,
+        "pytest_outcome": "failed",
+        "failure_type": "sqlite3.OperationalError",
+        "detail": "sqlite3.OperationalError: no such table: users"
+      },
+      "behavioral_test_validity": true,
+      "semantic_review": "controlled_candidate_with_known_expected_behavior",
+      "correct_fix_detected": true,
+      "incorrect_patch_rejected": true,
+      "unrelated_patch_rejected": true
+    }
+  ],
+  "vacuous_test_probe": {
+    "generation_mode": "controlled_gate_probe",
+    "generation": "generated",
+    "generation_reason": null,
+    "candidate_code": "from vulnapi.auth import validate_token\n\ndef test_reported_issue():\n    assert validate_token(\"malformed\") is False\n",
+    "original": {
+      "outcome": "passed",
+      "exit_code": 0,
+      "pytest_outcome": "passed",
+      "failure_type": null,
+      "detail": null
+    },
+    "detected_as_unconfirmed": true
+  },
+  "ambiguous_expectation_probe": {
+    "issue": "Admin mode behaves oddly.",
+    "expected_behavior": "Handle admin access appropriately.",
+    "generation": "needs_clarification",
+    "generation_reason": "Expected behavior needs a concrete, observable result for a defined input or condition",
+    "attempts": 0,
+    "candidates": [],
+    "abstained_for_ambiguity": true,
+    "rejected_by_test_validator": false
+  },
+  "metrics": {
+    "semantic_validity": 3,
+    "execution_behavioral_validity": 3,
+    "behavioral_test_validity": 3,
+    "correct_fix_detection": 3,
+    "incorrect_patch_rejection": 3,
+    "unrelated_patch_rejection": 3,
+    "clear_cases": 3,
+    "candidates_generated": 3,
+    "candidates_rejected": 0,
+    "patch_evaluations": 3,
+    "environment_related_false_failures": 1,
+    "environment_failures_counted_as_behavior": 0,
+    "vacuous_test_detected": true,
+    "ambiguous_request_abstained": true
+  }
+}

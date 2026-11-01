@@ -1,0 +1,45 @@
+{
+    "issue_id": "finding-0",
+    "steps": [
+        {
+            "name": "reproduction_before",
+            "command": "python -m pytest tests/test_auth.py::test_expired_token_rejected -v --tb=long",
+            "base_commit": "e6a7e09ccfcc90308bc17e330ea545e42519b083",
+            "patch_commit": "e6a7e09ccfcc90308bc17e330ea545e42519b083",
+            "expected_result": "exit code 1 (test fails)",
+            "timeout_seconds": 120,
+            "is_targeted": true
+        },
+        {
+            "name": "reproduction_after",
+            "command": "python -m pytest tests/test_auth.py::test_expired_token_rejected -v --tb=long",
+            "base_commit": "e6a7e09ccfcc90308bc17e330ea545e42519b083",
+            "patch_commit": "e6a7e09ccfcc90308bc17e330ea545e42519b083",
+            "expected_result": "exit code non-zero (validation did not pass pytest)",
+            "timeout_seconds": 120,
+            "is_targeted": true
+        },
+        {
+            "name": "mutation_test",
+            "command": "",
+            "base_commit": "e6a7e09ccfcc90308bc17e330ea545e42519b083",
+            "patch_commit": "e6a7e09ccfcc90308bc17e330ea545e42519b083",
+            "expected_result": "mutmut skipped or not run",
+            "timeout_seconds": 60,
+            "is_targeted": true
+        },
+        {
+            "name": "security_delta",
+            "command": "",
+            "base_commit": "e6a7e09ccfcc90308bc17e330ea545e42519b083",
+            "patch_commit": "e6a7e09ccfcc90308bc17e330ea545e42519b083",
+            "expected_result": "0 new findings vs baseline",
+            "timeout_seconds": 150,
+            "is_targeted": true
+        }
+    ],
+    "bundle_hash": "213840cd7982c547b7c73b5ce7c2d3bf5dbc7ec2f64f3792ec79dd12bf61629b",
+    "llm_involved_in_verification": false,
+    "reproduction_confidence": "exact_test",
+    "created_at": "2026-06-21T16:09:42.965581"
+}

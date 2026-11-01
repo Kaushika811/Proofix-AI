@@ -1,0 +1,65 @@
+.hero-signal-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  color: var(--foreground);
+  /* Fade toward the copy and at every edge; strongest in the empty right side. */
+  mask-image: radial-gradient(ellipse at 88% 46%, #000 0%, #000c 38%, transparent 78%);
+}
+.hero-signal-grid-field {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: min(100%, 640px);
+  height: 640px;
+  transform: translateY(-50%);
+}
+.hero-signal-grid-dots {
+  position: absolute;
+  inset: 0;
+  opacity: 0.14;
+  background-image: radial-gradient(circle at 16px 16px, currentColor 1.2px, transparent 1.5px);
+  background-size: 32px 32px;
+}
+.hero-signal-grid-cross {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  opacity: 0.22;
+  transform: translate(-50%, -50%);
+  background:
+    linear-gradient(currentColor, currentColor) center / 1px 9px no-repeat,
+    linear-gradient(currentColor, currentColor) center / 9px 1px no-repeat;
+}
+.hero-signal-grid-cross-a { left: 400px; top: 208px; }
+.hero-signal-grid-cross-b { left: 496px; top: 400px; }
+.hero-signal-grid-packet {
+  position: absolute;
+  left: 397px;
+  top: 205px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0;
+  animation: hero-grid-signal 6s linear 0.4s infinite;
+  animation-play-state: paused;
+}
+.hero-signal-grid[data-visible='true'] .hero-signal-grid-packet { animation-play-state: running; }
+@keyframes hero-grid-signal {
+  0% { opacity: 0; transform: translate(0, 0); }
+  10% { opacity: 0.42; transform: translate(0, 0); }
+  45% { opacity: 0.42; transform: translate(96px, 0); }
+  65% { opacity: 0.32; transform: translate(96px, 32px); }
+  78%, 100% { opacity: 0; transform: translate(96px, 32px); }
+}
+@media (max-width: 767px) {
+  .hero-signal-grid { mask-image: linear-gradient(to left, #000a, transparent 80%); }
+  .hero-signal-grid-field { right: -128px; width: 640px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-signal-grid .hero-signal-grid-packet { animation: none; display: none; }
+}

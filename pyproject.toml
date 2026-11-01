@@ -1,0 +1,70 @@
+[project]
+name = "proofix"
+version = "0.1.0"
+description = "Autonomous multi-agent bug detection and auto-PR system"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.32.0",
+    "pydantic>=2.9.0",
+    "pydantic-settings>=2.6.0",
+    "redis>=5.2.0",
+    "langgraph>=0.2.0",
+    "langchain-core>=0.3.0",
+    "anthropic>=0.39.0,<1.0.0",
+    "mistralai>=1.0.0,<2.0.0",
+    "email-validator>=2.0.0",
+    "httpx>=0.27.0",
+    "networkx>=3.4.0",
+    "gitpython>=3.1.43",
+    "PyGithub>=2.5.0",
+    "spacy>=3.8.0",
+    "python-multipart>=0.0.12",
+    "sqlalchemy>=2.0.0",
+    "pytest>=8.3.0",
+    "pytest-json-report>=1.5.0",
+    "bandit>=1.8.0",
+    "ruff>=0.8.0",
+    "semgrep>=1.91.0",
+    "mutmut>=3.6,<4",
+    "tomli-w>=1.0,<2",
+    "flask>=3.0.0",
+    "passlib>=1.7.4",
+    "bcrypt>=4.2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.0",
+    "pytest-asyncio>=0.24.0",
+    "pytest-json-report>=1.5.0",
+    "bandit>=1.8.0",
+    "ruff>=0.8.0",
+    "email-validator>=2.0.0",
+    "flask>=3.0.0",
+    "passlib>=1.7.4",
+    "bcrypt>=4.2.0",
+    "mutmut>=3.6,<4",
+    "fakeredis>=2.26.0",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+markers = [
+    "integration: requires external services or API keys",
+    "proof_gate: hard gate — reproduction command must be stable 10/10",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[build-system]
+requires = ["setuptools>=75.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["backend*"]

@@ -1,0 +1,544 @@
+/* Per-agent evidence cards (2×2) inside the agent timeline.
+   Cards keep the original fixed footprint: the grid, gaps and padding come from
+   .aflow-evidence in agent-flow.css; only the content inside each card changes. */
+.aev {
+  --aev-ok: #9bd8bd;
+  --aev-fail: #f2b4bf;
+  --aev-fail-line: #fb7185;
+  --aev-warn: #f0c69a;
+  --aev-info: #c5edff;
+  --aev-sky: #7dd3fc;
+  --aev-muted: #858f9e;
+  --aev-dim: #ffffff26;
+}
+
+.aev .aev-cell {
+  position: relative;
+  box-sizing: border-box;
+  height: 47.6px;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+
+/* Label row: label on the left, a small visual on the right. */
+.aev dt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  height: 13px;
+  min-width: 0;
+}
+.aev-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.aev-mark {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  height: 13px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* Value row */
+.aev dd {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 17.6px;
+  min-width: 0;
+}
+.aev dd[data-mono] .aev-value {
+  font:
+    10.5px ui-monospace,
+    monospace;
+}
+.aev-lead {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+}
+.aev-value {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.aev-cell[data-tone='ok'] .aev-value {
+  color: var(--aev-ok);
+}
+.aev-cell[data-tone='fail'] .aev-value {
+  color: var(--aev-fail);
+}
+.aev-cell[data-tone='warn'] .aev-value {
+  color: var(--aev-warn);
+}
+.aev-cell[data-tone='info'] .aev-value {
+  color: var(--aev-info);
+}
+.aev-cell[data-tone='pending'] .aev-value,
+.aev-cell[data-tone='muted'] .aev-value {
+  color: var(--aev-muted);
+}
+
+/* The card carrying the agent's key finding. */
+.aev-cell[data-focus]::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  border-radius: 0 2px 2px 0;
+  background: var(--aev-sky);
+}
+.aev-cell[data-focus][data-tone='ok']::after {
+  background: var(--aev-ok);
+}
+.aev-cell[data-focus][data-tone='fail']::after {
+  background: var(--aev-fail-line);
+}
+.aev-cell[data-focus][data-tone='warn']::after {
+  background: var(--aev-warn);
+}
+
+/* ---------- primitives ---------- */
+.aev-led {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--aev-ok);
+  box-shadow: 0 0 6px 0 currentColor;
+  color: #9bd8bd66;
+}
+.aev-led[data-tone='warn'] {
+  background: var(--aev-warn);
+  color: #f0c69a66;
+}
+.aev-led[data-tone='pending'] {
+  background: transparent;
+  border: 1px dashed var(--aev-muted);
+  box-shadow: none;
+}
+.aev-led[data-pulse='true'] {
+  animation: aev-pulse 1.8s ease-in-out infinite;
+}
+@keyframes aev-pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.aev-slots {
+  display: inline-flex;
+  gap: 2px;
+}
+.aev-slots > span {
+  width: 4px;
+  height: 9px;
+  border-radius: 1px;
+  background: var(--aev-dim);
+}
+.aev-slots > span[data-on='true'] {
+  background: var(--aev-sky);
+}
+.aev-slots[data-tone='muted'] > span[data-on='true'] {
+  background: #7aa3b8;
+}
+
+.aev-bars {
+  display: inline-flex;
+  gap: 2px;
+}
+.aev-bars > span {
+  width: 9px;
+  height: 4px;
+  border-radius: 1px;
+  background: var(--aev-ok);
+}
+.aev-bars[data-tone='fail'] > span {
+  background: var(--aev-fail-line);
+}
+
+.aev-meter {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 10px;
+}
+.aev-meter > span {
+  width: 3px;
+  border-radius: 1px;
+  background: var(--aev-dim);
+}
+.aev-meter > span[data-on='true'] {
+  background: var(--aev-warn);
+}
+
+.aev-chip {
+  display: inline-block;
+  padding: 0 5px;
+  line-height: 14px;
+  border: 1px solid #7dd3fc40;
+  border-radius: 4px;
+  background: #7dd3fc0d;
+  color: var(--aev-info);
+  font:
+    9.5px ui-monospace,
+    monospace;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  white-space: nowrap;
+}
+.aev-mark .aev-chip {
+  line-height: 11px;
+  font-size: 8.5px;
+}
+.aev-chip[data-tone='ok'] {
+  border-color: #9bd8bd40;
+  background: #9bd8bd0d;
+  color: var(--aev-ok);
+}
+.aev-chip[data-tone='fail'] {
+  border-color: #fb718550;
+  background: #fb718510;
+  color: var(--aev-fail);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.aev-chip[data-tone='muted'] {
+  border-color: #ffffff1a;
+  background: #ffffff06;
+  color: #a6b2c2;
+}
+.aev-chip[data-dashed='true'] {
+  border-style: dashed;
+}
+.aev-chips {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-right: 4px;
+}
+.aev-plus {
+  color: var(--aev-muted);
+  font-size: 10px;
+}
+
+.aev-glyph {
+  font:
+    11px ui-monospace,
+    monospace;
+  line-height: 1;
+  color: var(--aev-sky);
+}
+.aev-mark .aev-glyph {
+  font-size: 9.5px;
+}
+.aev-glyph[data-tone='ok'] {
+  color: var(--aev-ok);
+}
+.aev-glyph[data-tone='fail'] {
+  color: var(--aev-fail-line);
+}
+.aev-glyph[data-tone='warn'] {
+  color: var(--aev-warn);
+}
+.aev-glyph[data-tone='muted'],
+.aev-glyph[data-tone='pending'] {
+  color: var(--aev-muted);
+}
+
+.aev-gutter {
+  display: inline-grid;
+  place-items: center;
+  min-width: 14px;
+  height: 14px;
+  padding: 0 2px;
+  border-radius: 3px;
+  background: #ffffff08;
+  color: var(--aev-muted);
+  font:
+    9px ui-monospace,
+    monospace;
+}
+.aev-gutter[data-tone='ok'] {
+  background: #9bd8bd14;
+  color: var(--aev-ok);
+}
+.aev-gutter[data-tone='fail'] {
+  background: #fb718514;
+  color: var(--aev-fail);
+}
+
+.aev-hatch {
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: repeating-linear-gradient(-45deg, #f0c69a14 0 4px, transparent 4px 8px);
+  border: 1px solid #f0c69a33;
+  font-size: 10.5px;
+}
+
+.aev-compare {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--aev-dim);
+  overflow: hidden;
+}
+.aev-compare > span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 2px;
+  background: var(--aev-warn);
+}
+
+.aev-mutants {
+  display: inline-flex;
+  gap: 2px;
+}
+.aev-mutants > span {
+  display: grid;
+  place-items: center;
+  width: 11px;
+  height: 11px;
+  border-radius: 2px;
+  background: #9bd8bd1a;
+  border: 1px solid #9bd8bd55;
+  color: var(--aev-ok);
+  font-size: 7px;
+  line-height: 1;
+}
+
+/* SVG paint */
+.aev-svg {
+  display: block;
+  overflow: visible;
+}
+.aev-svg * {
+  fill: none;
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.aev-svg .aev-stroke-sky {
+  stroke: var(--aev-sky);
+}
+.aev-svg .aev-stroke-dim {
+  stroke: var(--aev-dim);
+}
+.aev-svg .aev-stroke-ok {
+  stroke: var(--aev-ok);
+}
+.aev-svg .aev-fill-sky {
+  fill: var(--aev-sky);
+}
+.aev-svg .aev-fill-dim {
+  fill: var(--aev-dim);
+}
+
+/* ---------- per-agent card treatments ---------- */
+
+/* Terminal: darker console cards with a prompt. */
+.aev[data-kind='terminal'] .aev-cell,
+.aev[data-kind='pytest'] .aev-cell {
+  background: hsl(0 0% 3%);
+}
+.aev[data-kind='terminal'] .aev-label::before {
+  content: '$ ';
+  color: var(--aev-sky);
+}
+.aev[data-kind='pytest'] .aev-label::before {
+  content: '› ';
+  color: var(--aev-muted);
+}
+
+/* Index + context: slotted cards with a faint grid. */
+.aev[data-kind='index'] .aev-cell,
+.aev[data-kind='context'] .aev-cell {
+  background-image: linear-gradient(#ffffff05 1px, transparent 1px);
+  background-size: 100% 6px;
+}
+
+/* Graph: dotted canvas. */
+.aev[data-kind='graph'] .aev-cell,
+.aev[data-kind='radius'] .aev-cell {
+  background-image: radial-gradient(#ffffff0d 0.6px, transparent 0.6px);
+  background-size: 6px 6px;
+}
+
+/* Diff: code-review lines. */
+.aev[data-kind='diff'] .aev-cell:nth-child(2) {
+  background: #9bd8bd0a;
+}
+.aev[data-kind='diff'] .aev-cell:nth-child(3) {
+  background: #fb71850a;
+}
+
+/* Chain: the missing check reads as the broken link. */
+.aev[data-kind='chain'] .aev-cell[data-tone='fail'] {
+  background: #fb71850a;
+}
+
+/* Gate / mutants / delta: outcome-tinted cards. */
+.aev[data-kind='gate'] .aev-cell[data-tone='ok'],
+.aev[data-kind='mutants'] .aev-cell[data-tone='ok'] {
+  background: #9bd8bd06;
+}
+.aev[data-kind='gate'] .aev-cell[data-tone='warn'],
+.aev[data-kind='delta'] .aev-cell[data-tone='warn'] {
+  background: #f0c69a08;
+}
+
+/* Advisory: unknowns are hatched, not filled. */
+.aev[data-kind='advisory'] .aev-cell[data-tone='muted'] .aev-value {
+  text-decoration: underline dashed #ffffff33;
+  text-underline-offset: 3px;
+}
+
+/* ---------- entrance when the agent opens ---------- */
+.aflow-row[data-state='active'] .aev-cell {
+  animation: aev-in 0.45s ease-out both;
+  animation-delay: calc(var(--i, 0) * 60ms + 80ms);
+}
+.aflow-row[data-state='active'] .aev-slots > span[data-on='true'],
+.aflow-row[data-state='active'] .aev-meter > span[data-on='true'],
+.aflow-row[data-state='active'] .aev-bars > span,
+.aflow-row[data-state='active'] .aev-mutants > span,
+.aflow-row[data-state='active'] .aev-pop {
+  animation: aev-pop 0.35s ease-out both;
+  animation-delay: calc(var(--i, 0) * 70ms + 320ms);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.aflow-row[data-state='active'] .aev-compare > span {
+  animation: aev-grow 0.6s ease-out both 0.35s;
+  transform-origin: left;
+}
+.aflow-row[data-state='active'] .aev-draw {
+  stroke-dasharray: 1;
+  animation: aev-draw 0.6s ease-out both 0.35s;
+}
+@keyframes aev-in {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes aev-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes aev-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes aev-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* The full test id is long; keep it on one line inside the card. */
+.aev[data-kind='pytest'] .aev-cell:first-child .aev-value {
+  font-size: 9.5px;
+}
+
+/* Narrow screens: cards are too slim for one-line values, so text wraps as the
+   original cards did; label-row marks step aside so cards stay their original height. */
+@media (max-width: 767px) {
+  .aev .aev-cell {
+    height: auto;
+    min-height: 47.6px;
+  }
+  .aev dt,
+  .aev dd {
+    display: block;
+    height: auto;
+  }
+  .aev dd {
+    margin-top: 3px;
+  }
+  .aev-mark {
+    display: none;
+  }
+  .aev-lead {
+    display: inline-flex;
+    vertical-align: -2px;
+    margin-right: 5px;
+  }
+  .aev-label,
+  .aev-value {
+    display: inline;
+    white-space: normal;
+    overflow: visible;
+    overflow-wrap: anywhere;
+  }
+  .aev dd[data-mono] .aev-value {
+    font: inherit;
+  }
+  .aev[data-kind='terminal'] .aev-label::before,
+  .aev[data-kind='pytest'] .aev-label::before {
+    content: none;
+  }
+  .aev-lead {
+    display: none !important;
+  }
+  .aev-chip {
+    padding: 0 3px;
+    line-height: 13px;
+  }
+  .aev-chips {
+    gap: 2px;
+    margin-right: 2px;
+  }
+  .aev-chip {
+    white-space: normal;
+  }
+}
+
+/* Right-aligned (left-side) cards on larger screens keep their content left-aligned inside each card. */
+@media (min-width: 768px) {
+  .aflow-row[data-side='left'] .aev .aev-cell {
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aev-led[data-pulse='true'],
+  .aflow-row[data-state='active'] .aev-cell,
+  .aflow-row[data-state='active'] .aev-slots > span,
+  .aflow-row[data-state='active'] .aev-meter > span,
+  .aflow-row[data-state='active'] .aev-bars > span,
+  .aflow-row[data-state='active'] .aev-mutants > span,
+  .aflow-row[data-state='active'] .aev-pop,
+  .aflow-row[data-state='active'] .aev-compare > span,
+  .aflow-row[data-state='active'] .aev-draw {
+    animation: none;
+  }
+}

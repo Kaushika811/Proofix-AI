@@ -1,0 +1,485 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@source "../Landing_page/src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+
+  --color-status-running: var(--status-running);
+  --color-status-running-bg: var(--status-running-bg);
+  --color-status-completed: var(--status-completed);
+  --color-status-completed-bg: var(--status-completed-bg);
+  --color-status-retry: var(--status-retry);
+  --color-status-retry-bg: var(--status-retry-bg);
+  --color-status-failed: var(--status-failed);
+  --color-status-failed-bg: var(--status-failed-bg);
+  --color-status-draft: var(--status-draft);
+  --color-status-draft-bg: var(--status-draft-bg);
+  --color-status-blocked: var(--status-blocked);
+  --color-status-blocked-bg: var(--status-blocked-bg);
+
+  --font-sans: "Inter", "SF Pro Display", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Geist", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.04);
+  --shadow-md: 0 1px 2px rgb(0 0 0 / 0.04), 0 4px 12px -6px rgb(0 0 0 / 0.08);
+  --shadow-lg: 0 2px 4px rgb(0 0 0 / 0.04), 0 12px 32px -12px rgb(0 0 0 / 0.12);
+}
+
+:root {
+  --radius: 0.625rem; /* 10px — cards, inputs, buttons, panels, dialogs, chips */
+
+  --background: oklch(0.984 0.003 247.858);
+  --foreground: oklch(0.18 0.02 264);
+  --surface: oklch(1 0 0);
+  --surface-muted: oklch(0.972 0.005 247);
+  --ink: oklch(0.18 0.02 264);
+  --ink-soft: oklch(0.54 0.02 264);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.21 0.03 264);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.21 0.03 264);
+  --primary: #3b82f6;
+  --primary-foreground: #f8fafc;
+  --secondary: #f5f5f5;
+  --secondary-foreground: #18181b;
+  --muted: #f5f5f5;
+  --muted-foreground: #737373;
+  --accent: #f4f4f5;
+  --accent-foreground: #18181b;
+  --destructive: #ef4444;
+  --destructive-foreground: #fafafa;
+  --border: oklch(0.92 0.008 256);
+  --input: oklch(0.92 0.008 256);
+  --ring: #3b82f6;
+
+  --status-running: #3b82f6;
+  --status-running-bg: color-mix(in srgb, #3b82f6 12%, white);
+  --status-completed: #16a34a;
+  --status-completed-bg: color-mix(in srgb, #22c55e 14%, white);
+  --status-retry: #d97706;
+  --status-retry-bg: color-mix(in srgb, #f59e0b 16%, white);
+  --status-failed: #dc2626;
+  --status-failed-bg: color-mix(in srgb, #ef4444 12%, white);
+  --status-draft: #0891b2;
+  --status-draft-bg: color-mix(in srgb, #06b6d4 14%, white);
+  /* Blocked is not a failure and not a draft: the run never got to try. Violet
+     keeps it distinct from failed-red, retry-amber and draft-cyan. */
+  --status-blocked: #7c3aed;
+  --status-blocked-bg: color-mix(in srgb, #8b5cf6 14%, white);
+}
+
+.dark {
+  /* Neutral near-black palette — reference-matched */
+  --background: #0a0a0a;
+  --foreground: #fafafa;
+  --surface: #141414;
+  --surface-muted: #1a1a1a;
+  --ink: #fafafa;
+  --ink-soft: #a1a1aa;
+  --card: #141414;
+  --card-foreground: #fafafa;
+  --popover: #141414;
+  --popover-foreground: #fafafa;
+  --primary: #3b82f6;
+  --primary-foreground: #fafafa;
+  --secondary: #1a1a1a;
+  --secondary-foreground: #fafafa;
+  --muted: #171717;
+  --muted-foreground: #737373;
+  --accent: #1f1f1f;
+  --accent-foreground: #fafafa;
+  --destructive: #ef4444;
+  --destructive-foreground: #fafafa;
+  --border: #262626;
+  --input: #262626;
+  --ring: #3b82f6;
+
+  /* Semantic status — blue=active, green=done, amber=retry, red=fail, cyan=info(draft) */
+  --status-running: #3b82f6;
+  --status-running-bg: color-mix(in srgb, #3b82f6 16%, transparent);
+  --status-completed: #22c55e;
+  --status-completed-bg: color-mix(in srgb, #22c55e 14%, transparent);
+  --status-retry: #f59e0b;
+  --status-retry-bg: color-mix(in srgb, #f59e0b 14%, transparent);
+  --status-failed: #ef4444;
+  --status-failed-bg: color-mix(in srgb, #ef4444 14%, transparent);
+  --status-draft: #06b6d4;
+  --status-draft-bg: color-mix(in srgb, #06b6d4 14%, transparent);
+  --status-blocked: #a78bfa;
+  --status-blocked-bg: color-mix(in srgb, #8b5cf6 16%, transparent);
+}
+
+@keyframes line-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes panel-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes soft-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+@keyframes caret-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes handoff-flow {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+@keyframes handoff-line-grow {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+@keyframes graph-in {
+  from {
+    opacity: 0;
+    transform: scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes graph-label-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes graph-edge-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/* A4 convergence node — a slow ring pulse, only while a diversity bonus is
+   paid. Global prefers-reduced-motion block above neutralises this already. */
+@keyframes convergence-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-status-completed) 35%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 6px color-mix(in oklab, var(--color-status-completed) 0%, transparent);
+  }
+}
+
+@utility animate-line-in {
+  animation: line-in 350ms ease-out both;
+}
+@utility animate-card-in {
+  animation: card-in 250ms ease-out both;
+}
+@utility animate-panel-in-right {
+  animation: panel-in-right 250ms ease-out both;
+}
+@utility animate-soft-pulse {
+  animation: soft-pulse 1.6s ease-out infinite;
+}
+@utility animate-caret-blink {
+  animation: caret-blink 1s steps(1, end) infinite;
+}
+@utility animate-handoff-flow {
+  animation: handoff-flow 1.4s ease-out infinite;
+}
+@utility animate-handoff-line-grow {
+  animation: handoff-line-grow 350ms ease-out both;
+  transform-origin: top;
+}
+
+/* Graph build-in: container → edges → labels, plays once. */
+@utility animate-graph-in {
+  animation: graph-in 250ms ease-out both;
+  transform-origin: center;
+}
+@utility animate-convergence-pulse {
+  animation: convergence-pulse 2.2s ease-in-out infinite;
+}
+.animate-graph-in line,
+.animate-graph-in path {
+  animation: graph-edge-in 250ms ease-out 150ms both;
+}
+.animate-graph-in text {
+  animation: graph-label-in 250ms ease-out 350ms both;
+}
+
+/* A9 reconciliation ledger — one arrival beat, then still.
+   Baseline column in, post-patch column in, rails draw left-to-right, and the
+   chips no rail reaches settle last. The introduced finding earns attention by
+   being structurally isolated once everything has landed, never by pulsing:
+   a looping alarm on a security panel trains the reader to stop looking. */
+/* A10 merge circuit — the current draws left-to-right and stops where it
+   stopped. One beat, no loop: the break is a fact to read, not an alarm.
+   The global prefers-reduced-motion block above neutralises it. */
+@keyframes circuit-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@utility animate-circuit-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: circuit-draw 620ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+@keyframes ledger-chip-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes ledger-chip-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes ledger-rail-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes ledger-settle {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@utility animate-ledger-baseline-in {
+  animation: ledger-chip-in-left 220ms ease-out both;
+}
+@utility animate-ledger-post-in {
+  animation: ledger-chip-in-right 220ms ease-out 120ms both;
+}
+@utility animate-ledger-rail-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: ledger-rail-draw 400ms ease-out 220ms both;
+}
+@utility animate-ledger-settle {
+  animation: ledger-settle 260ms ease-out 620ms both;
+}
+/* "Not compared" is not a result. Hatching reads as an absence of data in a
+   way an empty box never does, and the stripe carries no status colour so it
+   cannot be mistaken for a pass or a failure. */
+@utility ledger-hatch {
+  background-image: repeating-linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--color-ink-soft) 14%, transparent) 0px,
+    color-mix(in oklab, var(--color-ink-soft) 14%, transparent) 1px,
+    transparent 1px,
+    transparent 7px
+  );
+}
+
+@utility hover-card-lift {
+  @apply transition-[transform,border-color,box-shadow] duration-150 ease-out;
+}
+@utility hover-card-lift-hover {
+  @apply hover:-translate-y-[1px] hover:scale-[1.005] hover:border-primary/30 hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_20px_-14px_hsl(var(--primary)/0.25)];
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  /* Cohesive global theme transition — every surface fades together */
+  html,
+  body,
+  html *,
+  html *::before,
+  html *::after {
+    transition:
+      background-color 350ms ease-out,
+      border-color 350ms ease-out,
+      color 350ms ease-out,
+      fill 350ms ease-out,
+      stroke 350ms ease-out,
+      box-shadow 350ms ease-out;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.6;
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Typography — Geist headings, Inter body, JetBrains Mono for code.
+     Applies globally without changing existing layouts; per-element size
+     classes still win via specificity. */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+    color: var(--color-ink);
+    letter-spacing: -0.011em;
+    line-height: 1.25;
+  }
+  h1 {
+    font-weight: 700;
+  }
+  h2 {
+    font-weight: 700;
+  }
+  h3 {
+    font-weight: 600;
+  }
+  h4,
+  h5,
+  h6 {
+    font-weight: 600;
+  }
+  code,
+  kbd,
+  pre,
+  samp {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem; /* 13px */
+    font-weight: 500;
+  }
+  /* Consistent focus ring across every interactive element */
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible,
+  [role="button"]:focus-visible,
+  [tabindex]:focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 2px var(--color-background),
+      0 0 0 4px color-mix(in oklab, var(--color-primary) 45%, transparent);
+    border-radius: inherit;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

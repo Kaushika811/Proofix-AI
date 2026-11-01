@@ -1,0 +1,11 @@
+[phases.setup]
+nixPkgs = ["python311", "gcc", "git"]
+
+[phases.install]
+cmds = [
+  "python -m venv --copies /opt/venv",
+  ". /opt/venv/bin/activate && pip install -r requirements.txt 'pytest>=8.3.0' 'pytest-json-report>=1.5.0'"
+]
+
+[start]
+cmd = "PYTHONPATH=.. uvicorn main:app --host 0.0.0.0 --port $PORT"

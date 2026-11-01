@@ -1,0 +1,191 @@
+{
+  "mode": "offline_real_agents_stub_a7",
+  "live_model_measured": false,
+  "independent_real_world_defects_measured": 0,
+  "case_count": 3,
+  "cases": [
+    {
+      "case": "expired_token",
+      "prior_generator_fixture": true,
+      "independent_real_world_defect": false,
+      "source_scope": [
+        "vulnapi/auth.py",
+        "tests/test_reported_issue.py"
+      ],
+      "source_sha256": "1e541995eba6ba1af5feb631e5cee3f9945465bf271caf3b729052a9d5c23975",
+      "test_sha256": "1cb7f121e479961da2c13c8d916f796724c2559f34e0d1d55c4e2430fb030ed0",
+      "issue_contract": {
+        "description": "Expired tokens are accepted. Reject expired tokens and retain valid tokens.",
+        "target_test": "tests/test_reported_issue.py::test_reported_issue",
+        "expected_behavior": "An expired token returns False and an unexpired token returns True.",
+        "target_file": "vulnapi/auth.py"
+      },
+      "calibration": {
+        "original": {
+          "target_test_passed": false,
+          "pytest_available": true,
+          "assertion_failure": true,
+          "regression_tests_passed": null
+        },
+        "correct_fix": {
+          "target_test_passed": true,
+          "pytest_available": true,
+          "assertion_failure": false,
+          "regression_tests_passed": true
+        },
+        "incorrect_patch": {
+          "target_test_passed": false,
+          "pytest_available": true,
+          "assertion_failure": true,
+          "regression_tests_passed": null
+        }
+      },
+      "environment_status": null,
+      "environment_reason": null,
+      "reproduction_status": "CONFIRMED",
+      "resolved_target": "vulnapi/auth.py",
+      "root_cause_source": "deterministic",
+      "planning_order_source": "deterministic",
+      "patch_count": 0,
+      "attempt_count": 1,
+      "failure_categories": [
+        "insufficient_evidence"
+      ],
+      "recovery_decisions": [
+        "recovery_stop"
+      ],
+      "status": "blocked",
+      "contract_preserved": true,
+      "target_test_passed": false,
+      "regression_tests_passed": null,
+      "mutation_status": "not_run",
+      "repair_correctness": null,
+      "semantic_review": "not_applicable_stub",
+      "wrong_target_recovery": null,
+      "diagnosis_recovery": null,
+      "validation_failure_recovery": null
+    },
+    {
+      "case": "pagination_off_by_one",
+      "prior_generator_fixture": false,
+      "independent_real_world_defect": false,
+      "source_scope": [
+        "paging.py",
+        "tests/test_reported_issue.py"
+      ],
+      "source_sha256": "b696895234d29aa6fc137139d3764ad311e5e4d4e7389730909d2611bb57b202",
+      "test_sha256": "f4f21fbf3fc08a3eefe7a57e7b30d17207f67922d4113882e20e58fe485bd112",
+      "issue_contract": {
+        "description": "The first page skips the first items because pagination uses a zero-based offset for a one-based page number.",
+        "target_test": "tests/test_reported_issue.py::test_reported_issue",
+        "expected_behavior": "For [10, 20, 30, 40, 50] and size 2, page 1 returns [10, 20] and page 2 returns [30, 40].",
+        "target_file": "paging.py"
+      },
+      "calibration": {
+        "original": {
+          "target_test_passed": false,
+          "pytest_available": true,
+          "assertion_failure": true,
+          "regression_tests_passed": null
+        },
+        "correct_fix": {
+          "target_test_passed": true,
+          "pytest_available": true,
+          "assertion_failure": false,
+          "regression_tests_passed": true
+        },
+        "incorrect_patch": {
+          "target_test_passed": false,
+          "pytest_available": true,
+          "assertion_failure": true,
+          "regression_tests_passed": null
+        }
+      },
+      "environment_status": null,
+      "environment_reason": null,
+      "reproduction_status": "CONFIRMED",
+      "resolved_target": "paging.py",
+      "root_cause_source": "deterministic",
+      "planning_order_source": "deterministic",
+      "patch_count": 0,
+      "attempt_count": 1,
+      "failure_categories": [
+        "insufficient_evidence"
+      ],
+      "recovery_decisions": [
+        "recovery_stop"
+      ],
+      "status": "blocked",
+      "contract_preserved": true,
+      "target_test_passed": false,
+      "regression_tests_passed": null,
+      "mutation_status": "not_run",
+      "repair_correctness": null,
+      "semantic_review": "not_applicable_stub",
+      "wrong_target_recovery": null,
+      "diagnosis_recovery": null,
+      "validation_failure_recovery": null
+    },
+    {
+      "case": "discount_amount",
+      "prior_generator_fixture": false,
+      "independent_real_world_defect": false,
+      "source_scope": [
+        "pricing.py",
+        "tests/test_reported_issue.py"
+      ],
+      "source_sha256": "6f5372a0c6ba89675c85c4f878e81755c640696c8a87c8578b6037c7d7c9b34b",
+      "test_sha256": "11a611e54561e73b72e941282d9f29f5d42c166fbe272a9be8c6ea3402936cd6",
+      "issue_contract": {
+        "description": "A percentage discount subtracts the percentage as cents instead of calculating its share of the amount.",
+        "target_test": "tests/test_reported_issue.py::test_reported_issue",
+        "expected_behavior": "A 25 percent discount on 2000 cents returns 1500 cents; a zero percent discount returns 2000 cents.",
+        "target_file": "pricing.py"
+      },
+      "calibration": {
+        "original": {
+          "target_test_passed": false,
+          "pytest_available": true,
+          "assertion_failure": true,
+          "regression_tests_passed": null
+        },
+        "correct_fix": {
+          "target_test_passed": true,
+          "pytest_available": true,
+          "assertion_failure": false,
+          "regression_tests_passed": true
+        },
+        "incorrect_patch": {
+          "target_test_passed": false,
+          "pytest_available": true,
+          "assertion_failure": true,
+          "regression_tests_passed": null
+        }
+      },
+      "environment_status": null,
+      "environment_reason": null,
+      "reproduction_status": "CONFIRMED",
+      "resolved_target": "pricing.py",
+      "root_cause_source": "deterministic",
+      "planning_order_source": "deterministic",
+      "patch_count": 0,
+      "attempt_count": 1,
+      "failure_categories": [
+        "insufficient_evidence"
+      ],
+      "recovery_decisions": [
+        "recovery_stop"
+      ],
+      "status": "blocked",
+      "contract_preserved": true,
+      "target_test_passed": false,
+      "regression_tests_passed": null,
+      "mutation_status": "not_run",
+      "repair_correctness": null,
+      "semantic_review": "not_applicable_stub",
+      "wrong_target_recovery": null,
+      "diagnosis_recovery": null,
+      "validation_failure_recovery": null
+    }
+  ]
+}

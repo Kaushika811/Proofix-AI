@@ -1,0 +1,321 @@
+.landing-page {
+.repair-scope {
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--background);
+  overflow: hidden;
+  font-family: Inter, system-ui, sans-serif;
+}
+.scope-editor-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 14px;
+  border-bottom: 1px solid #ffffff12;
+  font-size: 10px;
+  color: #b2becd;
+}
+.scope-editor-toolbar > span:first-child {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.scope-editor-toolbar i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #7dd3fc;
+}
+.scope-editor-toolbar > span:last-child {
+  color: #7d8899;
+  font-size: 8px;
+}
+.scope-symbol-query {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-bottom: 1px solid #ffffff12;
+  background: #ffffff02;
+}
+.scope-symbol-query > span {
+  font-size: 8px;
+  color: #8591a2;
+  letter-spacing: 0.06em;
+}
+.scope-symbol-query > span:last-child {
+  margin-left: auto;
+  letter-spacing: 0;
+}
+.scope-symbol-query code {
+  color: #c4dbea;
+  font-size: 11px;
+}
+.scope-editor-workspace {
+  display: grid;
+  grid-template-columns: 165px minmax(0, 1fr);
+}
+.scope-references {
+  padding: 7px 0;
+  border-right: 1px solid #ffffff12;
+  background: #ffffff02;
+}
+.scope-references button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 13px 10px;
+  text-align: left;
+  border-left: 2px solid transparent;
+  color: #8491a3;
+}
+.scope-references button[aria-selected='true'] {
+  border-left-color: #7dd3fc;
+  background: #7dd3fc0a;
+  color: #c4e8f7;
+}
+.scope-references button:hover {
+  background: #ffffff04;
+}
+.scope-references button:focus-visible {
+  outline: 1px solid #7dd3fc;
+  outline-offset: -2px;
+}
+.scope-references strong {
+  display: block;
+  font:
+    10px/1.4 ui-monospace,
+    SFMono-Regular,
+    monospace;
+}
+.scope-references small {
+  display: block;
+  font-size: 8px;
+  color: #6f7c8e;
+  margin-top: 4px;
+}
+.scope-file-icon {
+  font-size: 10px;
+}
+.scope-file-mark {
+  margin-left: auto;
+  font:
+    7px ui-monospace,
+    monospace;
+  color: #91b5c8;
+}
+.scope-source-panel {
+  min-width: 0;
+}
+.scope-source-panel:focus-visible {
+  outline: 1px solid #7dd3fc;
+  outline-offset: -2px;
+}
+.scope-source-path {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 5px;
+  padding: 12px;
+  border-bottom: 1px solid #ffffff0a;
+}
+.scope-source-path code {
+  font-size: 9px;
+  color: #b0becf;
+}
+.scope-source-path > span {
+  font-size: 8px;
+  color: #8da2b9;
+}
+.scope-relationship {
+  padding: 10px 12px 8px;
+  font-size: 8px;
+  color: #71849c;
+}
+.scope-source-code {
+  min-height: 156px;
+  padding: 0 6px;
+}
+.scope-source-line {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  border-left: 2px solid transparent;
+  padding: 3px 4px;
+  font:
+    10px/1.8 ui-monospace,
+    SFMono-Regular,
+    monospace;
+  color: #a6b2c2;
+}
+.scope-source-line > span {
+  flex-shrink: 0;
+  min-width: 10px;
+  color: #546172;
+  font-size: 8px;
+  text-align: right;
+}
+.scope-source-line code {
+  min-width: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.scope-highlight-fault {
+  background: #fb718510;
+  border-left-color: #fb7185;
+  color: #f2b4bf;
+}
+.scope-highlight-reference {
+  background: #7dd3fc09;
+  border-left-color: #7dd3fc80;
+  color: #bddfef;
+}
+.scope-highlight-test {
+  background: #bda6f510;
+  border-left-color: #bda6f570;
+  color: #cfc2eb;
+}
+.scope-source-citation {
+  padding: 8px 12px 12px;
+  font-size: 8px;
+  color: #8197ae;
+}
+.scope-source-explanation {
+  padding: 12px 14px;
+  border-top: 1px solid #ffffff12;
+  min-height: 77px;
+}
+.scope-source-explanation > span {
+  color: #6f8096;
+  font-size: 7px;
+  letter-spacing: 0.1em;
+}
+.scope-source-explanation p {
+  margin-top: 5px;
+  color: #9eacbf;
+  font-size: 10px;
+  line-height: 1.7;
+}
+.scope-change-set {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  border-top: 1px solid #ffffff12;
+  padding: 12px 14px;
+}
+.scope-change-set > div > span {
+  display: block;
+  color: #6e8199;
+  font-size: 7px;
+  letter-spacing: 0.1em;
+}
+.scope-change-set strong {
+  display: block;
+  font-size: 11px;
+  color: #c3d5e6;
+  font-weight: 500;
+  margin-top: 3px;
+}
+.scope-change-set code,
+.scope-change-set small {
+  display: block;
+  font-size: 8px;
+  color: #8090a5;
+  margin-top: 4px;
+}
+.scope-change-set[data-final-scope='true'] > div:first-child {
+  border-left: 2px solid #7dd3fc80;
+  padding-left: 9px;
+}
+.scope-editor-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  border-top: 1px solid #ffffff0a;
+  padding: 9px 14px;
+  color: #6c7d94;
+  font-size: 8px;
+}
+@media (max-width: 639px) {
+  .scope-editor-workspace {
+    grid-template-columns: 1fr;
+  }
+  .scope-references {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-right: 0;
+    border-bottom: 1px solid #ffffff12;
+    padding: 0;
+  }
+  .scope-references button {
+    padding: 8px 10px;
+  }
+  .scope-references small {
+    font-size: 7px;
+    margin-top: 2px;
+  }
+  .scope-source-code {
+    min-height: 155px;
+  }
+  .scope-source-explanation {
+    min-height: 82px;
+    padding: 9px 12px;
+  }
+  .scope-source-explanation p {
+    font-size: 9px;
+  }
+  .scope-change-set {
+    padding: 9px 12px;
+    gap: 10px;
+  }
+  .scope-editor-footer > span:last-child {
+    display: none;
+  }
+  .scope-source-citation {
+    padding-bottom: 8px;
+  }
+  .scope-source-path {
+    padding: 9px 12px;
+  }
+  .scope-relationship {
+    padding-top: 7px;
+  }
+}
+@media (max-width: 359px) {
+  .scope-editor-toolbar,
+  .scope-symbol-query {
+    padding: 9px 10px;
+  }
+  .scope-symbol-query {
+    gap: 8px;
+  }
+  .scope-symbol-query code {
+    font-size: 10px;
+  }
+  .scope-source-line {
+    font-size: 9px;
+  }
+  .scope-source-code {
+    min-height: 140px;
+  }
+  .scope-source-explanation {
+    min-height: 80px;
+  }
+  .scope-references button {
+    padding-block: 6px;
+  }
+}
+@media (max-width: 359px) {
+  .scope-source-line { padding-block: 2px; }
+  .scope-source-explanation { min-height: 64px; padding-block: 7px; }
+  .scope-source-explanation p { line-height: 1.5; }
+  .scope-change-set { padding-block: 7px; }
+  .scope-source-path { padding-block: 7px; }
+}
+
+}

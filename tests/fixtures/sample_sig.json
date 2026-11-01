@@ -1,0 +1,26 @@
+{
+  "repo_path": "/tmp/sample-repo",
+  "source_roots": ["src/myapp/"],
+  "files": {
+    "src/myapp/auth.py": {
+      "path": "src/myapp/auth.py",
+      "role": "auth-boundary",
+      "imports": ["base64", "json", "time"],
+      "imported_by": ["src/myapp/middleware.py"],
+      "churn_weight": 0.9,
+      "criticality": 0.92
+    },
+    "src/myapp/api.py": {
+      "path": "src/myapp/api.py",
+      "role": "public-api",
+      "imports": ["sqlite3", "pathlib"],
+      "imported_by": [],
+      "churn_weight": 0.7,
+      "criticality": 0.85
+    }
+  },
+  "edges": [
+    ["src/myapp/middleware.py", "myapp.auth"]
+  ],
+  "generated_at": "2026-01-01T00:00:00"
+}

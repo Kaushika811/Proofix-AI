@@ -1,0 +1,29 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Environment
+.env
+
+# Redis
+dump.rdb
+
+# SQLite
+*.db
+*.sqlite3
+
+# Build
+dist/
+build/
+*.egg-info/
+
+# Testing
+.pytest_cache/
+.mutmut-cache/
+
+# macOS
+.DS_Storenode_modules/
+.DS_Store
+.DS_Store
